@@ -1,16 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define MAX_CITIES 20  // Maximum number of cities (nodes)
+#define MAX_CITIES 20 
 
-// Graph structure
-int graph[MAX_CITIES][MAX_CITIES];  // Adjacency matrix
-int visited[MAX_CITIES];  // To track visited nodes for DFS/BFS
 
-// Function to create the graph
+int graph[MAX_CITIES][MAX_CITIES];  
+int visited[MAX_CITIES]; 
+
+
 void createGraph(int n) {
     int i, j;
-    // Initialize the adjacency matrix with 0s
+    
     for (i = 0; i < n; i++) {
         for (j = 0; j < n; j++) {
             graph[i][j] = 0;
@@ -22,20 +22,20 @@ void createGraph(int n) {
         int u, v;
         printf("Enter edge (from city, to city): ");
         scanf("%d %d", &u, &v);
-        if (u == -1 && v == -1) break;  // Terminate input on -1 -1
+        if (u == -1 && v == -1) break;  
         
         if (u >= 0 && u < n && v >= 0 && v < n) {
-            graph[u][v] = 1;  // Directed edge from u to v
+            graph[u][v] = 1;  
         } else {
             printf("Invalid cities. Please enter values between 0 and %d.\n", n-1);
         }
     }
 }
 
-// DFS function to explore reachable nodes
+
 void dfs(int start, int n) {
     visited[start] = 1;
-    printf("City %d ", start);  // Printing the city number
+    printf("City %d ", start);  
     
     for (int i = 0; i < n; i++) {
         if (graph[start][i] == 1 && !visited[i]) {
@@ -44,19 +44,19 @@ void dfs(int start, int n) {
     }
 }
 
-// BFS function to explore reachable nodes
+
 void bfs(int start, int n) {
     int queue[MAX_CITIES];
     int front = 0, rear = 0;
 
     visited[start] = 1;
-    queue[rear++] = start;  // Add the start city to the queue
+    queue[rear++] = start;  
 
     while (front < rear) {
         int city = queue[front++];
-        printf("City %d ", city);  // Printing the city number
+        printf("City %d ", city);  
         
-        // Explore neighbors
+        
         for (int i = 0; i < n; i++) {
             if (graph[city][i] == 1 && !visited[i]) {
                 visited[i] = 1;
@@ -66,23 +66,23 @@ void bfs(int start, int n) {
     }
 }
 
-// Main driver function
+
 int main() {
     int n, start, choice;
 
-    // Input number of cities (nodes)
+    
     printf("Enter the number of cities: ");
     scanf("%d", &n);
 
-    // Initialize visited array
+    
     for (int i = 0; i < n; i++) {
         visited[i] = 0;
     }
 
-    // Create graph
+   
     createGraph(n);
 
-    // Menu for operations
+    
     while (1) {
         printf("\nGraph Operations:\n");
         printf("1. DFS from a starting city\n");
@@ -93,7 +93,7 @@ int main() {
 
         switch (choice) {
             case 1:
-                // DFS operation
+                
                 printf("Enter the starting city for DFS (0 to %d): ", n - 1);
                 scanf("%d", &start);
                 if (start < 0 || start >= n) {
@@ -101,7 +101,7 @@ int main() {
                     break;
                 }
 
-                // Reset visited array for DFS
+                
                 for (int i = 0; i < n; i++) {
                     visited[i] = 0;
                 }
@@ -112,7 +112,7 @@ int main() {
                 break;
 
             case 2:
-                // BFS operation
+                
                 printf("Enter the starting city for BFS (0 to %d): ", n - 1);
                 scanf("%d", &start);
                 if (start < 0 || start >= n) {
@@ -120,7 +120,7 @@ int main() {
                     break;
                 }
 
-                // Reset visited array for BFS
+                
                 for (int i = 0; i < n; i++) {
                     visited[i] = 0;
                 }
